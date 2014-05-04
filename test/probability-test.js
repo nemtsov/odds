@@ -28,8 +28,20 @@ describe('Probability', function () {
 
     it('should get prob of set given set', function () {
       p = new Probability(new Set(1, 2, 3, 4, 5));
-      p.of(new Set(3, 5), new Set(2, 3, 4))
-        .should.approximately(1 / 3, 1e-9);
+      p.of(new Set(3, 4, 5), new Set(2, 3, 4))
+        .should.approximately(2 / 3, 1e-9);
+    });
+
+    it('should follow Bayes rule', function () {
+      var a, b;
+
+      p = new Probability(new Set(1, 2, 3, 4, 5));
+      a = new Set(1, 2);
+      b = new Set(2, 3, 4);
+
+      p.of(a, b).should.equal(
+        p.of(b, a) * p.of(a) / p.of(b)
+      );
     });
   });
 });
