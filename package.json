@@ -1,0 +1,15 @@
+{
+  "name": "odds",
+  "version": "0.1.0",
+  "description": "Library to deal with probability.",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "mocha -r should"
+  },
+  "keywords": [
+    "odds",
+    "probability"
+  ],
+  "author": "nemtsov@gmail.com",
+  "license": "MIT"
+}
