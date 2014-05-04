@@ -4,7 +4,8 @@
   "description": "Library to deal with probability.",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha -r should"
+    "test": "mocha -r should",
+    "watch": "mocha -r should -G -w -R min"
   },
   "keywords": [
     "odds",
