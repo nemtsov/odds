@@ -1,4 +1,4 @@
-var Set = require('../lib/set');
+var Set = require('../lib').Set;
 
 describe('Set', function () {
   var a, b, c;
