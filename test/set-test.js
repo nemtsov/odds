@@ -139,5 +139,27 @@ describe('Set', function () {
         a.intersect(b).union(a.intersect(c))
       ).should.be.ok;
     });
+
+    describe('De Morgan\'s laws', function () {
+      it('should work for complement of an intersection', function () {
+        a = new Set(1, 2, 3);
+        b = new Set(3, 4, 5);
+        c = new Set(1, 2, 3, 4, 5);
+
+        a.intersect(b).complementOf(c).equals(
+          a.complementOf(c).union(b.complementOf(c))
+        ).should.be.ok;
+      });
+
+      it('should work for complement of a union', function () {
+        a = new Set(1, 2, 3);
+        b = new Set(3, 4, 5);
+        c = new Set(1, 2, 3, 4, 5);
+
+        a.union(b).complementOf(c).equals(
+          a.complementOf(c).intersect(b.complementOf(c))
+        ).should.be.ok;
+      });
+    });
   });
 });
