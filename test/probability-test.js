@@ -27,9 +27,9 @@ describe('Probability', function () {
     });
 
     it('should get prob of set given set', function () {
-      p = new Probability(new Set(1, 2, 3, 4));
-      p.of(new Set(2, 3), new Set(2, 3, 4))
-        .should.equal(2 / 3);
+      p = new Probability(new Set(1, 2, 3, 4, 5));
+      p.of(new Set(3, 5), new Set(2, 3, 4))
+        .should.approximately(1 / 3, 1e-9);
     });
   });
 });
