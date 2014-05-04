@@ -1,5 +1,6 @@
 var odds = require('../lib'),
   Set = odds.Set,
+  Cards = odds.util.Cards,
   Probability = odds.Probability;
 
 describe('Probability', function () {
@@ -32,6 +33,17 @@ describe('Probability', function () {
         .should.approximately(2 / 3, 1e-9);
     });
 
+    it('should follow known formula', function () {
+      var a, b;
+      p = new Probability(new Set(1, 2, 3, 4, 5));
+      a = new Set(1, 2);
+      b = new Set(2, 3, 4);
+
+      p.of(a, b).should.equal(
+        p.of(a.intersect(b)) / p.of(b)
+      );
+    });
+
     it('should follow Bayes rule', function () {
       var a, b;
 
@@ -42,6 +54,42 @@ describe('Probability', function () {
       p.of(a, b).should.equal(
         p.of(b, a) * p.of(a) / p.of(b)
       );
+    });
+  });
+
+  describe('independence', function () {
+    it('should be true for 3 H/T flip', function () {
+      var a, b;
+
+      p = new Probability(
+        new Set('HHH', 'HHT', 'HTH', 'HTT',
+                'THH', 'THT', 'TTH', 'TTT')
+      );
+
+      a = new Set('HHH', 'HTH', 'THH', 'TTH');
+      b = new Set('HHH', 'HHT', 'THH', 'THT');
+
+      p.of(a.intersect(b))
+        .should.equal(p.of(a) * p.of(b));
+    });
+
+    it('should be true for cards (2 ind trials)', function () {
+      var deck, jacks, eights;
+
+      deck = Cards.deck();
+
+      jacks = deck.filter(function (c) {
+        return c.indexOf('J') === 0;
+      });
+
+      eights = deck.filter(function (c) {
+        return c.indexOf('8') === 0;
+      });
+
+      p = new Probability(deck);
+
+      (p.of(jacks) * p.of(eights))
+        .should.approximately((4 / 52) * (4 / 52), 1e-9);
     });
   });
 });
