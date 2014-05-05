@@ -2,8 +2,9 @@ var util = require('../../lib/util');
 
 describe('Util', function () {
   it('should get permutations', function () {
-    var exp = util.permutations(10, 2);
-    exp.length.should.equal(Math.pow(10, 2));
+    var base = 3, exp = 3,
+      perms = util.permutations(base, exp);
+    perms.length.should.equal(Math.pow(base, exp));
   });
 
   it('should get range', function () {
